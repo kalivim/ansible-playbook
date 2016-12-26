@@ -1,13 +1,11 @@
----
-- hosts: all
-  tasks:
-  - name: Mkdir script dir
-    command: mkdir -p /script
-    
-  - name: Download Java 1.8.112 shell script
-    copy:
-      src: /clusters/jdk-1.8.112.sh
-      dest: /script/jdk-1.8.112.sh
-      mode: 0777
-  - name: Start run the install shell script
-    shell: /script/jdk-1.8.112.sh
+- name: Mkdir script dir
+  command: mkdir -p /script
+  
+- name: Download Java 1.8.112 shell script
+  copy:
+    src: /clusters/jdk-1.8.112.sh
+    dest: /script/jdk-1.8.112.sh
+    mode: 0777
+
+- name: Start run the install shell script
+  shell: /script/jdk-1.8.112.sh
