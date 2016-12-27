@@ -1,11 +1,20 @@
-- name: Mkdir script dir
-  command: mkdir -p /script
-  
-- name: Download Java 1.8.112 shell script
-  copy:
-    src: /clusters/jdk-1.8.112.sh
-    dest: /script/jdk-1.8.112.sh
-    mode: 0777
+- name: 下载源码包
+  unarchive: 
+    src: http://mirrors.linuxeye.com/jdk/jdk-8u112-linux-x64.tar.gz
+    dest: /data/software/
+    remote_src: True
 
-- name: Start run the install shell script
-  shell: /script/jdk-1.8.112.sh
+- name: 添加环境变量
+  blockinfile:
+    dest: /etc/profile
+    marker: #JAVA_HOME_ENV_{mark}
+    block: |
+      export JAVA_HOME=/data/software/jdk1.8.0_112
+      export PATH=\$JAVA_HOME/bin:\$PATH
+      export CLASSPATH=.:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
+  notify:
+  - sourct env
+
+- handlers:
+  - name: source env
+    command: source /etc/profile
