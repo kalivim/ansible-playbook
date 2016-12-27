@@ -1,0 +1,50 @@
+---
+- name: 正在部署Zookeeper集群
+  hosts: all
+  #vars:
+  #  zkbin: /data/software/zkserver/zookeeper-3.4.9
+  #  zkdir: /data/software/zkserver
+  #  zkpkg: "http://www.apache.org/dist/zookeeper/stable/zookeeper-3.4.9.tar.gz"
+  tasks:
+    - name: 
+      unarchive:
+        src: "{{ zkpkg }}"
+        dest: "{{ zkdir }}"
+        remote_src: True
+    - name: 创建数据目录
+      file:
+        path: "{{ zkdir }}/data"
+        state: directory
+
+    - name: 创建Myid文件
+      file:
+        path: "{{ zkdir }}/data/myid"
+        state: touch
+
+    - name: 写入ID
+      lineinfile:
+        dest: "{{ zkdir }}/data/myid"
+        line: "{{ play_hosts.index(inventory_hostname)|int + 1 }}"
+
+    - name: 创建zoo.cfg
+      file:
+        path: "{{ zkbin }}/conf/zoo.cfg"
+        state: touch
+
+    - name: 配置zoo.cfg
+      blockinfile:
+        dest: "{{ zkbin }}/conf/zoo.cfg"
+        marker: "#Server_List_{mark}"
+        block: |
+          tickTime=2000
+          initLimit=10
+          syncLimit=5
+          dataDir={{ zkdir }}/data
+          clientPort=2181
+          {% for serverlist in play_hosts %}
+          server.{{ play_hosts.index(serverlist)|int + 1 }}={{ serverlist }}:2888:3888
+          {% endfor %}
+    - name: 启动Zkserver
+      shell: sh zkServer.sh start
+        args:
+          chdir: "{{ zkbin }}/bin/"
