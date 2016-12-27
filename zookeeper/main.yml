@@ -6,11 +6,17 @@
   #  zkdir: /data/software/zkserver
   #  zkpkg: "http://www.apache.org/dist/zookeeper/stable/zookeeper-3.4.9.tar.gz"
   tasks:
-    - name: 
+    - name: 创建zk目录
+      file:
+        path: "{{ zkdir }}"
+        state: directory
+        
+    - name: 下载zookeeper源码包
       unarchive:
         src: "{{ zkpkg }}"
         dest: "{{ zkdir }}"
         remote_src: True
+        
     - name: 创建数据目录
       file:
         path: "{{ zkdir }}/data"
