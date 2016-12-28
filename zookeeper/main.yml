@@ -50,7 +50,14 @@
           {% for serverlist in play_hosts %}
           server.{{ play_hosts.index(serverlist)|int + 1 }}={{ serverlist }}:2888:3888
           {% endfor %}
+          
     - name: 启动Zkserver
-      shell: sh zkServer.sh start
-      args:
-        chdir: "{{ zkbin }}/bin/"
+      shell: source /etc/profile;sh "{{ zkbin }}/bin/zkServer.sh" start
+
+    - name: 检查启动状态
+      shell: source /etc/profile;sh "{{ zkbin }}/bin/zkServer.sh" status
+      register: check_zk
+
+    - name: ZK集群状态
+      debug:
+        msg: "{{ check_zk.stdout }}"
