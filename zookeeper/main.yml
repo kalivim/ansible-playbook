@@ -52,5 +52,5 @@
           {% endfor %}
     - name: 启动Zkserver
       shell: sh zkServer.sh start
-        args:
-          chdir: "{{ zkbin }}/bin/"
+      args:
+        chdir: "{{ zkbin }}/bin/"
