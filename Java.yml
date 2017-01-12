@@ -20,7 +20,7 @@
         marker: '#JAVA_HOME_ENV_{mark}'
         block: |
           export JAVA_HOME={{ dir }}/jdk1.8.0_112
-          export PATH=$JAVA_HOME/bin:\$PATH
+          export PATH=$JAVA_HOME/bin:$PATH
           export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
       notify:
       - source env
