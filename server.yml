@@ -1,7 +1,7 @@
 - name: 安装游戏服
   hosts: all
   #vars:
-  #  pkg: "http://download.nust.na/pub2/apache/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz"
+  #  pkg: "https://s3-us-west-2.amazonaws.com/serveras/game-service.tar"
   #  dir: /data/project/game-service
   tasks:
     - name: 创建目录
