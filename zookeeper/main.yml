@@ -4,7 +4,7 @@
   #vars:
   #  zkbin: /data/software/zkserver/zookeeper-3.4.9
   #  zkdir: /data/software/zkserver
-  #  zkpkg: "http://www.apache.org/dist/zookeeper/stable/zookeeper-3.4.9.tar.gz"
+  #  zkpkg: "http://www.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz"
   tasks:
     - name: 创建zk目录
       file:
