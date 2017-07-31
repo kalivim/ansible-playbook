@@ -1,8 +1,8 @@
 - name: 安装游戏服
   hosts: all
   #vars:
-  #  pkg: "https://s3-us-west-2.amazonaws.com/serveras/game-service.tar"
-  #  dir: /data/project/game-service
+  #  pkg: "https://#"
+  #  dir: /data/
   tasks:
     - name: 创建目录
       file:
