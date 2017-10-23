@@ -1,0 +1,4 @@
+---
+bigdata_dir: /data/bigdata
+flume_pkg: "https://flume.tar.gz"
+flume_dir: "{{ bigdata_dir }}/flume/apache-flume-1.6.0-bin"

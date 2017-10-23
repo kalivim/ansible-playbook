@@ -1,0 +1,52 @@
+---
+#磁盘
+data_dir: /data
+disk_type: ext2
+disk_dev: /dev/vdb
+
+software_dir: "{{ data_dir }}/software"
+project_dir: "{{ data_dir }}/project"
+jdk_pkg: "http://mirrors.linuxeye.com/jdk/jdk-8u112-linux-x64.tar.gz"
+jdk_env: "{{ software_dir }}/jdk1.8.0_112"
+
+#游戏
+s_dir: "{{ project_dir }}/game-server"
+g_dir: "{{ project_dir }}/game-gateway"
+
+#game_mysql配置
+game_mysql: "1.1.1.1"
+game_mysql_port: "3306"
+game_mysql_db: "db_name"
+game_mysql_user: "root"
+game_mysql_passwd: "password"
+
+#game_other_mysql配置
+game_mysql_other: "1.1.1.1"
+game_mysql_other_port: "3306"
+game_mysql_other_db: "db_name"
+game_mysql_other_user: "root"
+game_mysql_other_passwd: "password"
+
+#gm配置
+gm_mysql: "1.1.1.1"
+gm_mysql_port: "3306"
+gm_mysql_user: "root"
+gm_mysql_passwd: "password"
+gm_mysql_db: "db_name"
+
+#reids配置
+redis: "1.1.1.1"
+redis_port: "6379"
+redis_db: "1"
+redis_passwd: "password"
+
+#游戏zk地址
+zookeeper_ip: "zookeeper://zk-01:2181"
+
+#flume地址
+flume_ip: "hdfs-01:6666 hdfs-02:6666 hdfs-03:6666"
+
+#hdfs
+hdfs_ip: "hdfs-01"
+hdfs_port: "9000"
+

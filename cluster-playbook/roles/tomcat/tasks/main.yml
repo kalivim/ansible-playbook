@@ -1,0 +1,40 @@
+---
+- name: 下载tomcat
+  unarchive:
+    src: "{{ tomcat_pkg }}"
+    dest: "{{ tomcat_dir }}"
+
+- name: 部署gm更新程序
+  template:
+    src: upgm.j2
+    dest: /usr/local/bin/upgm
+    mode: 0744
+
+- name: 配置gm连接数据库
+  template:
+    src: jdbc.properties.j2
+    dest: "/jdbc.properties"
+
+- name: 配置gm连接zookeeper
+  template:
+    src: applicationContext-mybatis.xml.j2
+    dest: "/applicationContext-mybatis.xml"
+
+- name: 创建gm_app目录
+  file:
+    path: "{{ tomcat_dir }}/webapps/game_gm"
+    state: directory 
+
+- name: 传输gm.sql文件
+  copy:
+    src: gm.sql
+    dest: "{{ tomcat_dir }}/gm.sql"
+
+- name: 执行sql文件
+  command: "mysql -u{{ gm_mysql_user }} -p{{ gm_mysql_passwd }} -h{{ gm_mysql }} -P{{  gm_mysql_port }} {{ gm_mysql_db }} < {{ tomcat_dir }}/gm.sql"
+
+- name: 启动gm
+  command: upgm
+
+- name: 添加快捷路径
+  command: "echo 'cd {{ tomcat_dir }}' >> /etc/profile"

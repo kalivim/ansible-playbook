@@ -1,0 +1,12 @@
+#!/bin/sh
+alias cp=cp
+mv {{ tomcat_dir }}/game_gm.war /backup/
+a=`wget {{ gm_pkg }} -O {{ tomcat_dir }}/game_gm.war --no-check-certificate>/dev/null 2>&1`
+sh {{ tomcat_dir }}/bin/shutdown.sh
+sleep 1
+rm -rf {{ tomcat_dir }}/webapps/game_gm/*
+#cp -f /data/project/game_gm/game_gm.war /data/project/game_gm/webapps/game_gm.war
+cd {{ tomcat_dir }}/webapps/game_gm/;jar xvf ../../game_gm.war
+cp -f /applicationContext-mybatis.xml {{ gm_config_dir }}/
+cp -f /jdbc.properties {{ gm_config_dir }}/
+sh {{ tomcat_dir }}/bin/startup.sh

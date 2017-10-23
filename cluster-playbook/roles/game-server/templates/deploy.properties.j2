@@ -1,0 +1,34 @@
+# is debug mode,1=debug 0=release
+isDebug=0
+
+# database config
+jdbcUrl=jdbc:mysql://{{ game_mysql }}:{{ game_mysql_port }}/{0}?characterEncoding=utf-8&amp;autoReconnect=true&amp;autoReconnectForPools=true
+dbUser={{ game_mysql_user }}
+dbPassword={{ game_mysql_passwd }}
+
+# database's name,real db's name tafang2_s001_xx
+databaseName={{ game_mysql_db }}
+
+
+
+# other database config
+otherJdbcUrl=jdbc:mysql://{{ game_mysql_other }}:{{ game_mysql_other_port }}/{0}?characterEncoding=utf-8&amp;autoReconnect=true&amp;autoReconnectForPools=true
+otherDbUser={{ game_mysql_other_user }}
+otherDbPassword={{ game_mysql_other_passwd }}
+otherDatabaseName={{ game_mysql_other_db }}
+
+#redis server
+redisHost={{ redis }}
+redisPort={{ redis_port }}
+{% if redis_passwd %}
+redisPwd={{ redis_passwd }}
+{% endif %}
+redisDbIndex={{ redis_db }}
+poolMaxTotal=300
+poolMaxIdle=1000
+poolMsaxWait=100000
+testOnBorrow=1
+
+warnEnabled=true
+# battle validation
+battleUrl={{ battle_url }}

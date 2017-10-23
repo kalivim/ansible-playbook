@@ -1,0 +1,30 @@
+﻿---
+- name: 源码安装Java1.8.0_112
+  file:
+    path: "{{ software_dir }}"
+    state: directory
+    
+- name: 下载源码包
+  unarchive: 
+    src: "{{ jdk_pkg }}"
+    dest: "{{ software_dir }}"
+    remote_src: True
+
+- name: 添加环境变量
+  blockinfile:
+    dest: /etc/profile
+    marker: '#JAVA_HOME_ENV_{mark}'
+    block: |
+      export JAVA_HOME={{ jdk_env }}
+      export PATH=$JAVA_HOME/bin:$PATH
+      export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+  notify:
+  - source env
+
+- name: 检测
+  shell: source /etc/profile;java -version
+  register: check_out
+
+- name: 结果
+  debug:
+    msg: "{{ check_out.stderr}}"

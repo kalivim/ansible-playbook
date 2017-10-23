@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="   
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd   
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- 消费方应用名 -->
+	 <dubbo:application name="game-gm" />
+	
+	<!-- 自动扫描加载bean -->
+	<context:component-scan base-package="com.game"/>
+	<!-- 扫描注解服务提供者 -->
+	<dubbo:annotation/>
+	<!-- 使用zookeeper注册中心暴露发现服务地址 -->
+	<dubbo:registry address="{{ zookeeper_ip }}" />
+	<!-- 引用服务接口 -->
+	 <import resource="consumer.xml"/> 
+				
+	<!-- Properties文件读取配置，base的properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<!-- data source -->
+    <bean id="dataSource"
+          class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${datasource.driverClassName}"></property>
+        <property name="jdbcUrl" value="${datasource.url}"></property>
+        <property name="user" value="${datasource.username}"></property>
+        <property name="password" value="${datasource.password}"></property>
+        <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 --> 
+        <property name="acquireIncrement" value="${c3p0.acquireIncrement}"></property>
+        <!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 --> 
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"></property>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"></property>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"></property>
+        <!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --> 
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"></property>
+        <!--每60秒检查所有连接池中的空闲连接。Default: 0 --> 
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"></property>
+        <!-- JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 
+	                        属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。 
+	                        如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0--> 
+        <property name="maxStatements" value="${c3p0.maxStatements}"></property>
+        <!-- c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能 通过
+                                  多线程实现多个操作同时被执行。Default: 3--> 
+        <property name="numHelperThreads" value="${c3p0.numHelperThreads}"></property>
+    </bean>
+ 	
+	<!-- 定义 SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		scope="singleton">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 配置事务通知属性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<!-- 定义事务传播属性 -->
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="new*" propagation="REQUIRED" />
+			<tx:method name="set*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="change*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" rollback-for="CustomException" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 应用普通类获取bean <bean id="appContext" class="com.soanl.util.tool.ApplicationUtil"/> -->
+
+	<!-- 配置事务切面 -->
+	<aop:config>
+		<aop:pointcut id="serviceOperation"
+			expression="execution(* com.game.ssm.service..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+	</aop:config>
+
+
+	<!-- Mybatis-Spring 会自动为我们注册Mapper对应的MapperFactoryBean对象 -->
+	<!-- Mapper接口所在包名，Spring会自动查找其下的Mapper -->
+	<!-- 给所有的dao接口自动添加实现类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.game.ssm.dao" />
+	</bean>
+	
+
+</beans>  

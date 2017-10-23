@@ -1,0 +1,24 @@
+---
+- name: 初始化运维堡垒机
+  blockinfile:
+    dest: /etc/profile
+    block: |
+      alias sqlgame='mysql -u{{ game_mysql_user }} -p{{ game_mysql_passwd }} -P{{ game_mysql_port }} -h{{ game_mysql }} {{ game_mysql_db }} -A'
+      alias sqlgm='mysql -u{{ gm_mysql_user }} -p{{ gm_mysql_passwd }} -P{{ gm_mysql_port }} -h{{ gm_mysql }} {{ gm_mysql_db }} -A'
+      alias ERROR='ansible alls -mshell -a"dumplog.sh all.log"'
+      alias dumpjava='ansible alls -mshell -a"dumpjava"'
+      alias GatewayError='ansible gateway -mshell -a"cd {{ g_dir }}/logs/; python search.py all.log"'
+      alias ServerError='ansible server -mshell -a"cd {{ s_dir }}/logs/; python search.py all.log"'
+      alias gamedump='mysqldump -u{{ game_mysql_user }} -p -h{{ game_mysql }} {{ game_mysql_db }} --force --skip-add-locks --skip-lock-tables > {{ data_dir }}/catmint_game.`date "+%Y-%m-%d"`.sql'
+
+- name: 添加redis清除脚本
+  template:
+    src: clean-redis.j2
+    dest: /usr/local/bin/clean-redis
+    mode: 0744
+
+- name: 添加Log查看
+  copy:
+    src: Log
+    dest: /usr/local/bin/Log
+    mode: 0744

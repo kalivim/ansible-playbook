@@ -1,0 +1,3 @@
+---
+- name: 启动游戏服
+  command: game start

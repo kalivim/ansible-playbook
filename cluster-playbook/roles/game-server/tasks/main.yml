@@ -1,0 +1,46 @@
+---
+- name: 部署游戏服
+  file:
+    path: "{{ s_dir }}"
+    state: directory
+
+- name: 下载压缩包
+  unarchive:
+    src: "{{ s_pkg }}"
+    dest: "{{ s_dir }}"
+
+- name: zk连接配置文件
+  template:
+    src: appContext.xml.j2
+    dest: "{{ s_dir }}/conf/appContext.xml"
+
+- name: 数据连接配置文件
+  template:
+    src: deploy.properties.j2
+    dest: "{{ s_dir }}/conf/deploy.properties"
+
+- name: log4j配置文件
+  template:
+    src: log4j.properties.j2
+    dest: "{{ s_dir }}/conf/log4j.properties"
+
+- name: 添加定制启动脚本
+  template:
+    src: srun.sh.j2
+    dest: "{{ s_dir }}/srun.sh"
+    mode: 0744
+
+- name: 添加java线程dump
+  template:
+    src: dumpjava.j2
+    dest: /usr/local/bin/dumpjava
+    mode: 0744
+
+- name: 添加管理程序
+  copy: 
+    src: game
+    dest: /usr/local/bin/game
+    mode: 0744
+
+- name: 添加快捷路径
+  command: "echo 'cd {{ s_dir }}' >> /etc/profile"

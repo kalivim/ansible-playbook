@@ -1,0 +1,40 @@
+#!/bin/sh
+
+function check(){
+	netstat -ntlp|grep 6666
+}
+
+function kill(){
+	netstat -ntlp|grep 6666|awk '{print $7}'|awk -F/ '{print $1}'|xargs kill 
+	echo "[!] Kill job ....."
+}
+
+function start(){
+	cd {{ flume_dir }};nohup bin/flume-ng agent --conf conf --conf-file conf/flume.conf --name catmint -Dflume.root.logger=INFO,console > flume.log 2>&1 &
+	echo "[+] Start flume ....."
+	check
+}
+
+if [ $# != "0" ];then
+	case ${1} in 
+		start)
+			start
+		;;
+		stop)
+			kill
+		;;
+		restart)
+			kill
+			start
+		;;
+		status)
+			check
+		;;
+		*)
+			echo "[flume start|stop|restart|status]"
+	esac
+else
+
+	echo "[flume start|stop|restart|status]"
+
+fi

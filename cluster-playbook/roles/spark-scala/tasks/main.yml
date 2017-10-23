@@ -1,0 +1,32 @@
+---
+- name: 下载部署包
+  unarchive:
+    src: "{{ spark_scals_pkg }}"
+    dest: "{{ spark_dir }}"
+
+- name: 添加统计定时任务
+  copy:
+    src: root
+    dest: /var/spool/cron/root
+    mode: 0600
+
+- name: 添加环境变量
+  blockinfile:
+    dest: /etc/profile
+    marker: '#sparl_scala_env'
+    block: |
+      export PATH="$PATH:{{ scala_dir }}/bin"
+      export PATH="$PATH:{{ spark_dir }}/bin"
+
+- name: 更改统计脚本配置
+  template:
+    src: env.sh.j2
+    dest: "{{ app_dir }}/env.sh"
+
+- name: 测试env
+  command: source /etc/profile;scala -version
+  register: check_out
+
+- name: 结果
+  debug:
+    msg: "{{ check_out.stderr }}"

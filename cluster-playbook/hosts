@@ -1,0 +1,26 @@
+[gm]
+gm ip=10.104.183.28
+
+[namenode]
+hdfs-01 ip=10.135.130.216
+
+[datanode]
+hdfs-02 ip=10.135.165.132
+hdfs-03 ip=10.135.183.156
+
+[zk]
+zk-01 ip=10.135.152.67
+
+[server]
+game-01 ip=10.135.63.129
+
+[gateway]
+gateway-01 ip=10.104.143.134
+
+[hdfs:children]
+namenode
+datanode
+
+[alls:children]
+server
+gateway

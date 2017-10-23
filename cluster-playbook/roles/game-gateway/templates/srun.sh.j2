@@ -1,0 +1,126 @@
+#!/bin/sh
+PATH={{ jdk_env }}/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+export PATH
+
+function Config(){
+
+	java_ms={{ g_jvm_ms }}m
+	java_mx={{ g_jvm_mx }}m
+	java_mn={{ g_jvm_mn }}m
+	geturl="{{ g_pkg }}"
+
+}
+
+function ImportLib(){
+
+	curr_dir=`pwd`
+	proc=${curr_dir}/proc
+	package=game-gateway.tar
+	backup_file=/backup/$package
+	finger_print=`echo ${curr_dir}+gameGateway+Qwer0987# | md5sum | cut -d ' ' -f1`
+	app_class=com.game.App
+	code_libs_dir=./libs
+	code_game_dir=./game_libs
+	all_libs=("${code_libs_dir}/*.jar ${code_game_dir}/*.jar ${curr_dir}/libs/*.jar")
+	log_file=logs/all.log
+	cp=.
+	cp=${cp}:config
+
+	for c in ${all_libs}
+	do
+		for j in ${c}
+		do
+			cp=${cp}:${j}
+		done
+	done
+
+}
+
+function KillJob(){
+
+	echo "[+]	正在杀死进程。。。"
+	jps -m | grep "${finger_print}" | grep -v 'grep' | awk '{print $1}' | xargs kill -s 9 >/dev/null 2>&1
+	kill -s 9 `netstat -ntlp|grep 8002|awk '{print $7}'|awk -F/ '{print $1}'`>/dev/null 2>&1
+	rm -f ${proc}
+	sleep 2
+
+}
+
+function StartServer(){
+
+	nohup java -Xms$java_ms -Xmx$java_mx -Xmn$java_mn -Xss1M -cp ${cp} ${app_class} -Ddir=${curr_dir} -Dfinger_print=${finger_print} > /dev/null & 
+	echo "[+]	正在启动服务。。。"
+
+}
+
+function ShowLogs(){
+
+	echo -e "[+] 启动日志：\n"
+	sleep 10
+	#cat -n ${log_file}|grep -v "INFO"
+	cat -n ${log_file}|grep "服务器"
+
+}
+
+function UpGrate(){
+
+	echo "[+]	备份文件中。。。"
+	rm -f ${backup_file}
+	mv ${curr_dir}/$package ${backup_file}
+	echo "[+]	正在下载文件。。。"
+	wget ${geturl} -P ${curr_dir} --no-check-certificate > /dev/null 2>&1
+	tar xvf $package -C ${curr_dir} > /dev/null 2>&1
+
+}
+
+function Back(){
+	
+	echo "[+]	正在回滚。。。"
+	rm -f ${curr_dir}/$package
+	cp ${backup_file} ${curr_dir}/
+	tar xvf $package -C ${curr_dir} > /dev/null 2>&1
+
+}
+
+function ChoiceOption(){
+
+	if [ $# != "0" ]
+	then
+		case ${1} in
+			stop)
+				KillJob
+			;;
+			start)
+				KillJob
+				StartServer
+				ShowLogs
+			;;
+			log)
+				tailf ${log_file}
+			;;
+			upgrade)
+				KillJob
+				UpGrate
+				StartServer
+				ShowLogs
+			;;
+			back)
+				KillJob
+				Back
+				StartServer
+				ShowLogs
+			;;
+			*)
+				echo -e "\n[ Usage ./run.sh start|stop|log|upgrade|back ]\n"
+		esac
+	else
+		KillJob
+		StartServer
+		tailf ${log_file}
+	fi
+}
+
+Config
+ImportLib
+ChoiceOption ${1}
+

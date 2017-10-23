@@ -1,0 +1,25 @@
+---
+- name: 安装mysql-python组件
+  yum:
+    name: MySQL-python
+    state: present
+
+- name: 创建游戏服数据库
+  mysql_db:
+    login_host: "{{ game_mysql }}"
+    login_port: "{{ game_mysql_port }}"
+    login_user: "{{ game_mysql_user }}"
+    login_password: "{{ game_mysql_passwd }}"
+    name: "{{ game_mysql_db }}"
+    state: present 
+    encoding: utf8
+
+- name: 创建gm数据库
+  mysql_db:
+    login_host: "{{ gm_mysql }}"
+    login_port: "{{ gm_mysql_port }}"
+    login_user: "{{ gm_mysql_user }}"
+    login_password: "{{ gm_mysql_passwd }}"
+    name: "{{ gm_mysql_db }}"
+    state: present 
+    encoding: utf8

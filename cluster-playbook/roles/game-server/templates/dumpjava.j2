@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+#Dump java game log
+#
+PATH={{ jdk_env }}/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+export PATH
+
+
+SPid=`netstat -ntlp|grep 20880|awk '{print $7}'|awk -F/ '{print $1}'`
+GPid=`netstat -ntlp|grep 8002|awk '{print $7}'|awk -F/ '{print $1}'`
+DumpDir={{ dump_java_dir }}
+
+if [ $SPid ];then
+	jstack $SPid > ${DumpDir}/server.log.`hostname`.`date +%Y-%m-%d_%H:%M:%S`
+else
+	jstack $GPid > ${DumpDir}/gateway.log.`hostname`.`date +%Y-%m-%d_%H:%M:%S`
+fi

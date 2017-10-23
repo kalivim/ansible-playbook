@@ -1,0 +1,12 @@
+datasource.driverClassName=com.mysql.jdbc.Driver
+datasource.url=jdbc:mysql://{{ gm_mysql }}:{{ gm_mysql_port }}/{{ gm_mysql_db }}?useUnicode=true&characterEncoding=UTF-8
+datasource.username={{ gm_mysql_user }}
+datasource.password={{ gm_mysql_passwd }}
+c3p0.acquireIncrement=3
+c3p0.initialPoolSize=3
+c3p0.idleConnectionTestPeriod=60
+c3p0.minPoolSize=5
+c3p0.maxPoolSize=100
+c3p0.maxStatements=100
+c3p0.numHelperThreads=10
+c3p0.maxIdleTime=60

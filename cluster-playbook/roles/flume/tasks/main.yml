@@ -1,0 +1,25 @@
+---
+- name: 安装Flume
+  file:
+    path: "{{ bigdata_dir }}/flume"
+    state: directory 
+
+- name: 下载解压源码包
+  unarchive:
+    src: "{{ flume_pkg }}"
+    dest: "{{ bigdata_dir }}/flume"
+    remote_src: True
+
+- name: 配置Flume.conf
+  template:
+    src: flume.conf.j2
+    dest: "{{ flume_dir }}/conf/flume.conf"
+
+- name: 增加flume启动程序
+  template:
+    src: flume.j2
+    dest: /usr/local/bin/flume
+    mode: 0744 
+  
+- name: 启动flume
+  command: flume start

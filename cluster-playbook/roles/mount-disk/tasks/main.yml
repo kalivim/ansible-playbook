@@ -1,0 +1,25 @@
+---
+- name: 创建数据目录
+  file:
+    path: "{{ data_dir }}"
+    state: directory
+
+- name: 格式化磁盘
+  filesystem:
+    fstype: "{{ disk_type }}"
+    dev: "{{ disk_dev }}"
+
+- name: 挂载磁盘
+  mount:
+    path: "{{ data_dir }}"
+    src: "{{ disk_dev }}"
+    fstype: "{{ disk_type }}"
+    state: mounted
+
+- name: 获取挂载信息
+  shell: df -h
+  register: disk_info
+
+- name: 磁盘情况
+  debug:
+    msg: "{{ disk_info.stdout }}"

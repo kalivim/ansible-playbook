@@ -1,0 +1,35 @@
+---
+- name: 部署网关服
+  file:
+    path: "{{ g_dir }}"
+    state: directory
+
+- name: 下载压缩包
+  unarchive:
+    src: "{{ g_pkg }}"
+    dest: "{{ g_dir }}"
+
+- name: zk连接配置文件
+  template:
+    src: appContext.xml.j2
+    dest: "{{ g_dir }}/conf/appContext.xml"
+
+- name: 数据连接配置文件
+  template:
+    src: deploy.properties.j2
+    dest: "{{ g_dir }}/conf/deploy.properties"
+
+- name: 添加定制启动脚本
+  template:
+    src: srun.sh.j2
+    dest: "{{ g_dir }}/srun.sh"
+    mode: 0744
+
+- name: 添加管理程序
+  copy:
+    src: game
+    dest: /usr/local/bin/game
+    mode: 0744
+
+- name: 添加快捷路径
+  command: "echo 'cd {{ g_dir }}' >> /etc/profile"

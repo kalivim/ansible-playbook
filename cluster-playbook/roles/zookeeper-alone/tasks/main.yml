@@ -1,0 +1,51 @@
+---
+- name: 创建zk目录
+  file:
+    path: "{{ zk_dir }}"
+    state: directory
+    
+- name: 下载zookeeper源码包
+  unarchive:
+    src: "{{ zk_pkg }}"
+    dest: "{{ zk_dir }}"
+    remote_src: True
+    
+- name: 创建数据目录
+  file:
+    path: "{{ zk_dir }}/data"
+    state: directory
+
+- name: 更改JVM
+  copy:
+    content: 'export JVMFLAGS="-Xms{{ zk_jvm_ms }}m -Xmx{{ zk_jvm_mx }}m $JVMFLAGS"'
+    dest: "{{ zk_bin }}/conf/java.env"
+
+- name: 创建zoo.cfg
+  file:
+    path: "{{ zk_bin }}/conf/zoo.cfg"
+    state: touch
+
+- name: 配置zoo.cfg
+  blockinfile:
+    dest: "{{ zk_bin }}/conf/zoo.cfg"
+    marker: "#Server_List_{mark}"
+    block: |
+      tickTime=2000
+      initLimit=10
+      syncLimit=5
+      dataDir={{ zk_dir }}/data
+      clientPort=2181
+      
+- name: 启动Zkserver
+  shell: source /etc/profile;sh "{{ zk_bin }}/bin/zkServer.sh" start
+
+- name: 检查启动状态
+  shell: source /etc/profile;sh "{{ zk_bin }}/bin/zkServer.sh" status
+  register: check_zk
+
+- name: ZK集群状态
+  debug:
+    msg: "{{ check_zk.stdout }}"
+
+- name: 添加快捷路径
+  command: "echo 'cd {{ zk_dir }}' >> /etc/profile"

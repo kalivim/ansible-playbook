@@ -1,0 +1,19 @@
+# is debug mode,1=debug 0=release
+isDebug=0
+
+# server ip
+jettyIp=192.168.99.158
+# server prort
+jettyPort=8002
+
+#redis server
+redisHost={{ redis }}
+redisPort={{ redis_port }}
+{% if redis_passwd %}
+redisPwd={{ redis_passwd }}
+{% endif %}
+redisDbIndex={{ redis_db }}
+poolMaxTotal=300
+poolMaxIdle=1000
+poolMsaxWait=100000
+testOnBorrow=1

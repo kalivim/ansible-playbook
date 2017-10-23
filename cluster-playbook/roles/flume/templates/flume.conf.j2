@@ -1,0 +1,54 @@
+#set name
+catmint.sources=source1  
+catmint.channels=channel1 channel2 
+catmint.sinks=sink1 sink2
+
+
+catmint.sources.source1.type=avro  
+catmint.sources.source1.bind=0.0.0.0  
+catmint.sources.source1.port=6666 
+catmint.sources.source1.channels=channel1 channel2
+catmint.sources.source1.interceptors=i1  
+catmint.sources.source1.interceptors.i1.type=com.game.flume.RegexExtractorExtInterceptor$Builder  
+catmint.sources.source1.interceptors.i1.regex=\\{.*\\} 
+catmint.sources.source1.interceptors.i1.fileName=cat_table_name  
+catmint.sources.source1.interceptors.i1.serializers=s1
+catmint.sources.source1.interceptors.i1.serializers.s1.name=one  
+
+#set HDFS
+catmint.sinks.sink1.type=hdfs
+catmint.sinks.sink1.channel=channel1
+catmint.sinks.sink1.hdfs.useLocalTimeStamp = true
+catmint.sinks.sink1.hdfs.path=hdfs://{{ hdfs_ip }}:{{ hdfs_port }}/catmint/logs/%{cat_table_name}/%Y-%m-%d
+catmint.sinks.sink1.hdfs.filePrefix=catmint_data
+catmint.sinks.sink1.hdfs.fileType=DataStream
+catmint.sinks.sink1.hdfs.writeFormat=Text
+#catmint.sinks.sink1.hdfs.rollInterval=0        #Time
+catmint.sinks.sink1.hdfs.rollInterval=10800
+#catmint.sinks.sink1.hdfs.rollSize=16488863     #Size
+catmint.sinks.sink1.hdfs.rollSize=0
+catmint.sinks.sink1.hdfs.rollCount=0
+catmint.sinks.sink1.hdfs.minBlockReplicas=1
+
+
+#set mysql
+catmint.sinks.sink2.type=com.game.flume.sink.MysqlSink
+catmint.sinks.sink2.hostname={{ gm_mysql }}
+catmint.sinks.sink2.port={{ gm_mysql_port }}
+catmint.sinks.sink2.databaseName={{ gm_mysql_db }}
+catmint.sinks.sink2.user={{ gm_mysql_user }}
+catmint.sinks.sink2.password={{ gm_mysql_passwd }}
+catmint.sinks.sink2.channel=channel2
+catmint.sinks.sink2.fileName=cat_table_name
+
+#set channel1
+catmint.channels.channel1.type=memory  
+catmint.channels.channel1.capacity=10000  
+catmint.channels.channel1.transactionCapacity=1000  
+catmint.channels.channel1.keep-alive=30 
+
+#set channel2
+catmint.channels.channel2.type=memory  
+catmint.channels.channel2.capacity=10000  
+catmint.channels.channel2.transactionCapacity=1000  
+catmint.channels.channel2.keep-alive=30 

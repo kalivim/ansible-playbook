@@ -1,0 +1,40 @@
+---
+#- hosts: all
+#  roles:
+#  - mount-disk
+#  - jdk
+#
+#- hosts: localhost
+#  roles:
+#  - mysql-init
+#  - ops
+#
+#- hosts: zk
+#  roles:
+#  - zookeeper-cluster
+#
+
+#- hosts: zk
+#  roles:
+#  - zookeeper-alone
+#
+- hosts: hdfs
+  roles:
+  - flume
+
+- hosts: namenode
+  roles:
+  - spark-scala
+
+- hosts: server
+  roles:
+  - game-server
+
+- hosts: gateway
+  roles:
+  - game-gateway
+
+- hosts: gm
+  roles:
+  - tomcat
+

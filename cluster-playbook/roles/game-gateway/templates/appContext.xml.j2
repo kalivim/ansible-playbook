@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context" 
+        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+        <!-- 消费方应用名 -->
+        <dubbo:application name="game-gateway" />
+
+        <!-- 自动扫描加载bean -->
+        <context:component-scan base-package="com.game"/>
+        <!-- 扫描注解服务提供者 -->
+        <dubbo:annotation/>
+        <!-- 使用zookeeper注册中心暴露发现服务地址 -->
+        <dubbo:registry address="{{ zookeeper_ip }}" />
+        <!-- 引用服务接口 -->
+        <import resource="consumer.xml"/>
+</beans>
+

@@ -1,0 +1,5 @@
+#SCALA_ENV
+export PATH="$PATH:/data/bigdata/spark_scala/scala-2.10.2/bin"
+
+#Spark_ENV
+export PATH="$PATH:/data/bigdata/spark_scala/spark-1.6.0-bin-hadoop2.6/bin"

@@ -1,0 +1,5 @@
+---
+g_pkg: "pkg_url"
+g_jvm_ms: 3648
+g_jvm_mx: 6980
+g_jvm_mn: 2512

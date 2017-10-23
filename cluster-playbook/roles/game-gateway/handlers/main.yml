@@ -1,0 +1,3 @@
+---
+- name: 启动网关服
+  command: game start
