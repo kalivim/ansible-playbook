@@ -1,0 +1,280 @@
+log4j.rootLogger=info,stdout,all
+log4j.logger.game.msg=debug,msg
+log4j.logger.game.battle=info,battle
+log4j.logger.game.logical=info,logical
+log4j.logger.game.role=info,role
+log4j.logger.game.bag=info,bag
+log4j.logger.game.arena=info,arena
+log4j.logger.game.arenarewar=info,arenarewar
+log4j.logger.game.charge=info,charge
+log4j.logger.game.mall=info,mall
+log4j.logger.game.war=info,war
+log4j.logger.game.warreport=info,warreport
+log4j.logger.game.hero=info,hero
+log4j.logger.game.task=info,task
+log4j.logger.game.reset=info,reset
+log4j.logger.game.server=info,server
+log4j.logger.game.offon=info,offon
+log4j.logger.game.newGuide=info,newGuide
+log4j.logger.game.specialPriceShop=info,specialPriceShop
+log4j.logger.game.dao=info,dao
+log4j.logger.game.error=info,error
+log4j.logger.game.seriousException=info,seriousException
+log4j.logger.game.activity=info,activity
+log4j.logger.game.userLogic=info,userLogic
+log4j.logger.game.recruit=info,recruit
+log4j.logger.game.clubbattle=info,clubbattle
+
+# ---- stdout ----
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.encoding=UTF-8
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] %C{1}.%M --> %m%n
+
+# ---- all ----
+log4j.appender.all=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.all.encoding=UTF-8
+log4j.appender.all.append=true
+log4j.appender.all.DatePattern='.'yyyy-MM-dd
+log4j.appender.all.File=logs/all.log
+log4j.appender.all.layout=org.apache.log4j.PatternLayout
+log4j.appender.all.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] %C{1}.%M --> %m%n
+
+# ---- error ----
+log4j.appender.error=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.error.encoding=UTF-8
+log4j.appender.error.append=true
+log4j.appender.error.DatePattern='.'yyyy-MM-dd
+log4j.appender.error.File=logs/error/error.log
+log4j.appender.error.layout=org.apache.log4j.PatternLayout
+log4j.appender.error.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] %C{1}.%M --> %m%n
+
+# ---- msg ----
+log4j.appender.msg=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.msg.encoding=UTF-8
+log4j.appender.msg.append=true
+log4j.appender.msg.DatePattern='.'yyyy-MM-dd
+log4j.appender.msg.File=logs/msg/msg.log
+log4j.appender.msg.layout=org.apache.log4j.PatternLayout
+log4j.appender.msg.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+log4j.additivity.monitorLogger=false
+
+# ---- battle ----
+log4j.appender.battle=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.battle.encoding=UTF-8
+log4j.appender.battle.append=true
+log4j.appender.battle.DatePattern='.'yyyy-MM-dd
+log4j.appender.battle.File=logs/battle/battle.log
+log4j.appender.battle.layout=org.apache.log4j.PatternLayout
+log4j.appender.battle.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- logicalInfo ----
+log4j.appender.logical=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.logical.encoding=UTF-8
+log4j.appender.logical.append=true
+log4j.appender.logical.DatePattern='.'yyyy-MM-dd
+log4j.appender.logical.File=logs/logical/logical.log
+log4j.appender.logical.layout=org.apache.log4j.PatternLayout
+log4j.appender.logical.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- role ----
+log4j.appender.role=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.role.encoding=UTF-8
+log4j.appender.role.append=true
+log4j.appender.role.DatePattern='.'yyyy-MM-dd
+log4j.appender.role.File=logs/role/role.log
+log4j.appender.role.layout=org.apache.log4j.PatternLayout
+log4j.appender.role.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- bag ----
+log4j.appender.bag=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.bag.encoding=UTF-8
+log4j.appender.bag.append=true
+log4j.appender.bag.DatePattern='.'yyyy-MM-dd
+log4j.appender.bag.File=logs/bag/bag.log
+log4j.appender.bag.layout=org.apache.log4j.PatternLayout
+log4j.appender.bag.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- arena ----
+log4j.appender.arena=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.arena.encoding=UTF-8
+log4j.appender.arena.append=true
+log4j.appender.arena.DatePattern='.'yyyy-MM-dd
+log4j.appender.arena.File=logs/arena/arena.log
+log4j.appender.arena.layout=org.apache.log4j.PatternLayout
+log4j.appender.arena.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- arenarewar ----
+log4j.appender.arenarewar=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.arenarewar.encoding=UTF-8
+log4j.appender.arenarewar.append=true
+log4j.appender.arenarewar.DatePattern='.'yyyy-MM-dd
+log4j.appender.arenarewar.File=logs/arenarewar/arenarewar.log
+log4j.appender.arenarewar.layout=org.apache.log4j.PatternLayout
+log4j.appender.arenarewar.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- charge ----
+log4j.appender.charge=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.charge.encoding=UTF-8
+log4j.appender.charge.append=true
+log4j.appender.charge.DatePattern='.'yyyy-MM-dd
+log4j.appender.charge.File=logs/charge/charge.log
+log4j.appender.charge.layout=org.apache.log4j.PatternLayout
+log4j.appender.charge.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+
+# ---- mall ----
+log4j.appender.mall=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.mall.encoding=UTF-8
+log4j.appender.mall.append=true
+log4j.appender.mall.DatePattern='.'yyyy-MM-dd
+log4j.appender.mall.File=logs/mall/mall.log
+log4j.appender.mall.layout=org.apache.log4j.PatternLayout
+log4j.appender.mall.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- war ----
+log4j.appender.war=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.war.encoding=UTF-8
+log4j.appender.war.append=true
+log4j.appender.war.DatePattern='.'yyyy-MM-dd
+log4j.appender.war.File=logs/war/war.log
+log4j.appender.war.layout=org.apache.log4j.PatternLayout
+log4j.appender.war.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- warreport ----
+log4j.appender.warreport=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.warreport.encoding=UTF-8
+log4j.appender.warreport.append=true
+log4j.appender.warreport.DatePattern='.'yyyy-MM-dd
+log4j.appender.warreport.File=logs/warreport/warreport.log
+log4j.appender.warreport.layout=org.apache.log4j.PatternLayout
+log4j.appender.warreport.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- hero ----
+log4j.appender.hero=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.hero.encoding=UTF-8
+log4j.appender.hero.append=true
+log4j.appender.hero.DatePattern='.'yyyy-MM-dd
+log4j.appender.hero.File=logs/hero/hero.log
+log4j.appender.hero.layout=org.apache.log4j.PatternLayout
+log4j.appender.hero.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- task ----
+log4j.appender.task=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.task.encoding=UTF-8
+log4j.appender.task.append=true
+log4j.appender.task.DatePattern='.'yyyy-MM-dd
+log4j.appender.task.File=logs/task/task.log
+log4j.appender.task.layout=org.apache.log4j.PatternLayout
+log4j.appender.task.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- reset ----
+log4j.appender.reset=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.reset.encoding=UTF-8
+log4j.appender.reset.append=true
+log4j.appender.reset.DatePattern='.'yyyy-MM-dd
+log4j.appender.reset.File=logs/reset/reset.log
+log4j.appender.reset.layout=org.apache.log4j.PatternLayout
+log4j.appender.reset.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+
+# ---- server ----
+log4j.appender.server=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.server.encoding=UTF-8
+log4j.appender.server.append=true
+log4j.appender.server.DatePattern='.'yyyy-MM-dd
+log4j.appender.server.File=logs/server/server.log
+log4j.appender.server.layout=org.apache.log4j.PatternLayout
+log4j.appender.server.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- servererror ----
+log4j.appender.server=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.server.encoding=UTF-8
+log4j.appender.server.Threshold = ERROR
+log4j.appender.server.append=true
+log4j.appender.server.DatePattern='.'yyyy-MM-dd
+log4j.appender.server.File=logs/error/error.log
+log4j.appender.server.layout=org.apache.log4j.PatternLayout
+log4j.appender.server.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- offon ----
+log4j.appender.offon=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.offon.encoding=UTF-8
+log4j.appender.offon.append=true
+log4j.appender.offon.DatePattern='.'yyyy-MM-dd
+log4j.appender.offon.File=logs/offon/offon.log
+log4j.appender.offon.layout=org.apache.log4j.PatternLayout
+log4j.appender.offon.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- newGuide ----
+log4j.appender.newGuide=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.newGuide.encoding=UTF-8
+log4j.appender.newGuide.append=true
+log4j.appender.newGuide.DatePattern='.'yyyy-MM-dd
+log4j.appender.newGuide.File=logs/newGuide/newGuide.log
+log4j.appender.newGuide.layout=org.apache.log4j.PatternLayout
+log4j.appender.newGuide.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- specialPriceShop ----
+log4j.appender.specialPriceShop=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.specialPriceShop.encoding=UTF-8
+log4j.appender.specialPriceShop.append=true
+log4j.appender.specialPriceShop.DatePattern='.'yyyy-MM-dd
+log4j.appender.specialPriceShop.File=logs/specialPriceShop/specialPriceShop.log
+log4j.appender.specialPriceShop.layout=org.apache.log4j.PatternLayout
+log4j.appender.specialPriceShop.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- seriousException ----
+log4j.appender.seriousException=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.seriousException.encoding=UTF-8
+log4j.appender.seriousException.append=true
+log4j.appender.seriousException.DatePattern='.'yyyy-MM-dd
+log4j.appender.seriousException.File=logs/seriousException/seriousException.log
+log4j.appender.seriousException.layout=org.apache.log4j.PatternLayout
+log4j.appender.seriousException.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- activity ----
+log4j.appender.activity=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.activity.encoding=UTF-8
+log4j.appender.activity.append=true
+log4j.appender.activity.DatePattern='.'yyyy-MM-dd
+log4j.appender.activity.File=logs/actvity/actvity.log
+log4j.appender.activity.layout=org.apache.log4j.PatternLayout
+log4j.appender.activity.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- userLogic ----
+log4j.appender.userLogic=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.userLogic.encoding=UTF-8
+log4j.appender.userLogic.append=true
+log4j.appender.userLogic.DatePattern='.'yyyy-MM-dd
+log4j.appender.userLogic.File=logs/userLogic/userLogic.log
+log4j.appender.userLogic.layout=org.apache.log4j.PatternLayout
+log4j.appender.userLogic.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- recruit ----
+log4j.appender.recruit=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.recruit.encoding=UTF-8
+log4j.appender.recruit.append=true
+log4j.appender.recruit.DatePattern='.'yyyy-MM-dd
+log4j.appender.recruit.File=logs/recruit/recruit.log
+log4j.appender.recruit.layout=org.apache.log4j.PatternLayout
+log4j.appender.recruit.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- clubbattle ----
+log4j.appender.clubbattle=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.clubbattle.encoding=UTF-8
+log4j.appender.clubbattle.append=true
+log4j.appender.clubbattle.DatePattern='.'yyyy-MM-dd
+log4j.appender.clubbattle.File=logs/clubbattle/clubbattle.log
+log4j.appender.clubbattle.layout=org.apache.log4j.PatternLayout
+log4j.appender.clubbattle.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+
+# ---- dao ----
+log4j.appender.dao=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.dao.encoding=UTF-8
+log4j.appender.dao.append=true
+log4j.appender.dao.DatePattern='.'yyyy-MM-dd
+log4j.appender.dao.File=logs/dao/dao.log
+log4j.appender.dao.layout=org.apache.log4j.PatternLayout
+log4j.appender.dao.layout.ConversionPattern=[%d{yy/MM/dd HH:mm:ss,SSS}] [%p] --> %m%n
+

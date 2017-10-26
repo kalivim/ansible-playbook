@@ -8,16 +8,21 @@
   unarchive:
     src: "{{ g_pkg }}"
     dest: "{{ g_dir }}"
+    remote_src: True
 
 - name: zk连接配置文件
   template:
     src: appContext.xml.j2
-    dest: "{{ g_dir }}/conf/appContext.xml"
+    dest: "{{ g_dir }}/config/appContext.xml"
+  tags: 
+    - change_config
 
 - name: 数据连接配置文件
   template:
     src: deploy.properties.j2
-    dest: "{{ g_dir }}/conf/deploy.properties"
+    dest: "{{ g_dir }}/config/deploy.properties"
+  tags: 
+    - change_config
 
 - name: 添加定制启动脚本
   template:
@@ -32,4 +37,6 @@
     mode: 0744
 
 - name: 添加快捷路径
-  command: "echo 'cd {{ g_dir }}' >> /etc/profile"
+  shell: "echo 'cd {{ g_dir }}' >> /etc/profile"
+  tags:
+    - link_path

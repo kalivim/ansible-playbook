@@ -1,5 +1,5 @@
----
-tomcat_pkg: "http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz"
-gm_pkg: "http://gm_url/"
-tomcat_dir: "{{ project_dir }}/game_gm"
-gm_config_dir: "{{ gm_dir }}/webapps/game_gm/WEB-INF/classes"
+﻿---
+tomcat_pkg: "http://apache-tomcat-8.5.23.tar.gz"
+gm_pkg: "https://game_gm.war"
+tomcat_dir: "{{ project_dir }}/apache-tomcat-8.5.23"
+gm_config_dir: "{{ tomcat_dir }}/webapps/game_gm/WEB-INF/classes"

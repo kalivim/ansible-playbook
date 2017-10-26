@@ -684,7 +684,7 @@ CREATE TABLE `t_online_num` (
   `date` varchar(50) DEFAULT NULL,
   `online_cnt` int(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

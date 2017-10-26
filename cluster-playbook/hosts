@@ -1,21 +1,29 @@
-[gm]
-gm ip=10.104.183.28
+﻿[gm]
+gm 
+
+[flume]
+hdfs-01 
+hdfs-02
+hdfs-03
 
 [namenode]
-hdfs-01 ip=10.135.130.216
+hdfs-01
 
 [datanode]
-hdfs-02 ip=10.135.165.132
-hdfs-03 ip=10.135.183.156
+hdfs-02
+hdfs-03
+
+[spark_scala]
+hdfs-01
 
 [zk]
-zk-01 ip=10.135.152.67
+zk-01
 
 [server]
-game-01 ip=10.135.63.129
+game-01 
 
 [gateway]
-gateway-01 ip=10.104.143.134
+gateway-01
 
 [hdfs:children]
 namenode

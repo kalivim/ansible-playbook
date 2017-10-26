@@ -1,8 +1,11 @@
----
+﻿---
 #磁盘
 data_dir: /data
 disk_type: ext2
 disk_dev: /dev/vdb
+
+#大数据
+bigdata_dir: "{{ data_dir }}/bigdata"
 
 software_dir: "{{ data_dir }}/software"
 project_dir: "{{ data_dir }}/project"
@@ -13,32 +16,35 @@ jdk_env: "{{ software_dir }}/jdk1.8.0_112"
 s_dir: "{{ project_dir }}/game-server"
 g_dir: "{{ project_dir }}/game-gateway"
 
+#log_dir
+dump_java_dir: "{{ data_dir }}/javalog"
+
 #game_mysql配置
 game_mysql: "1.1.1.1"
 game_mysql_port: "3306"
 game_mysql_db: "db_name"
 game_mysql_user: "root"
-game_mysql_passwd: "password"
+game_mysql_passwd: "passwd"
 
 #game_other_mysql配置
 game_mysql_other: "1.1.1.1"
 game_mysql_other_port: "3306"
 game_mysql_other_db: "db_name"
 game_mysql_other_user: "root"
-game_mysql_other_passwd: "password"
+game_mysql_other_passwd: "passwd"
 
 #gm配置
 gm_mysql: "1.1.1.1"
 gm_mysql_port: "3306"
 gm_mysql_user: "root"
-gm_mysql_passwd: "password"
-gm_mysql_db: "db_name"
+gm_mysql_passwd: "passwd"
+gm_mysql_db: "catmint_gm"
 
 #reids配置
 redis: "1.1.1.1"
 redis_port: "6379"
 redis_db: "1"
-redis_passwd: "password"
+redis_passwd: "passwd"
 
 #游戏zk地址
 zookeeper_ip: "zookeeper://zk-01:2181"

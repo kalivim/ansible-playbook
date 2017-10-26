@@ -5,14 +5,18 @@ function check(){
 }
 
 function kill(){
-	netstat -ntlp|grep 6666|awk '{print $7}'|awk -F/ '{print $1}'|xargs kill 
+	netstat -ntlp|grep 6666|awk '{print $7}'|awk -F/ '{print $1}'|xargs kill -s 9 
 	echo "[!] Kill job ....."
 }
 
 function start(){
-	cd {{ flume_dir }};nohup bin/flume-ng agent --conf conf --conf-file conf/flume.conf --name catmint -Dflume.root.logger=INFO,console > flume.log 2>&1 &
-	echo "[+] Start flume ....."
 	check
+	if [ "$?" != "0" ];then
+		cd {{ flume_dir }};nohup bin/flume-ng agent --conf conf --conf-file conf/flume.conf --name catmint -Dflume.root.logger=INFO,console > flume.log 2>&1 &
+		echo "[+] Start flume ....."
+	else
+		echo "[+] Already started"
+	fi
 }
 
 if [ $# != "0" ];then

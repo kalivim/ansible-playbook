@@ -1,0 +1,87 @@
+---
+- name: 创建hadoop目录
+  file:
+    path: "{{ hadoop_dir }}"
+    state: directory
+
+- name: 解压安装hadoop
+  unarchive:
+    src: "{{ hadoop_pkg }}"
+    dest: "{{ hadoop_dir }}"
+    validate_certs: no
+    remote_src: True
+
+- name: 配置hadoop-env文件
+  template:
+    src: hadoop-env.sh.j2
+    dest: "{{ hadoop_cnf }}/hadoop-env.sh"
+
+- name: 配置core-site文件
+  template:
+    src: core-site.xml.j2
+    dest: "{{ hadoop_cnf }}/core-site.xml"
+
+- name: 配置mapred-site文件
+  template:
+    src: mapred-site.xml.j2
+    dest: "{{ hadoop_cnf }}/mapred-site.xml"
+
+- name: 配置yarn-site文件
+  template:
+    src: yarn-site.xml.j2
+    dest: "{{ hadoop_cnf }}/yarn-site.xml"
+
+- name: 配置hdfs-site
+  template:
+    src: hdfs-site.xml.j2
+    dest: "{{ hadoop_cnf }}/hdfs-site.xml"
+
+- name: 配置master节点文件
+  template:
+    src: masters.j2
+    dest: "{{ hadoop_cnf }}/masters"
+  when: inventory_hostname == hdfs_ip
+
+- name: 配置slaves节点文件
+  template:
+    src: slaves.j2
+    dest: "{{ hadoop_cnf }}/slaves"
+  when: inventory_hostname == hdfs_ip
+
+- name: 创建data目录
+  file:
+    path: "{{ datanode_dir }}"
+    state: directory
+  when: inventory_hostname != hdfs_ip
+
+- name: 创建name目录
+  file:
+    path: "{{ namenode_dir }}"
+    state: directory
+  when: inventory_hostname == hdfs_ip
+
+- name: 添加hosts
+  blockinfile:
+    dest: /etc/hosts
+    marker: '#hdfs_localhost'
+    block: |
+      127.0.0.1 {{ ansible_hostname }}
+
+- name: 初始格式化namenome
+  shell: echo 'yes'\|./hdfs namemode -format
+  args:
+    chdir: "{{ hadoop_bin }}"
+  when: inventory_hostname == hdfs_ip
+
+- name: 启动hdfs集群
+  shell: ./start-dfs.sh
+  args:
+    chdir: "{{ hadoop_sbin }}"
+  when: inventory_hostname == hdfs_ip
+
+- name: 集群状态
+  shell: source /etc/profile;jps
+  register: hdfs_status
+
+- debug:
+    msg: "{{ hdfs_status.stdout_lines }}"

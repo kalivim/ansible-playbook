@@ -8,21 +8,28 @@
   unarchive:
     src: "{{ s_pkg }}"
     dest: "{{ s_dir }}"
+    remote_src: True
 
 - name: zk连接配置文件
   template:
     src: appContext.xml.j2
-    dest: "{{ s_dir }}/conf/appContext.xml"
+    dest: "{{ s_dir }}/config/appContext.xml"
+  tags: 
+    - change_config
 
 - name: 数据连接配置文件
   template:
     src: deploy.properties.j2
-    dest: "{{ s_dir }}/conf/deploy.properties"
+    dest: "{{ s_dir }}/config/deploy.properties"
+  tags: 
+    - change_config
 
 - name: log4j配置文件
   template:
     src: log4j.properties.j2
-    dest: "{{ s_dir }}/conf/log4j.properties"
+    dest: "{{ s_dir }}/config/log4j.properties"
+  tags: 
+    - change_config
 
 - name: 添加定制启动脚本
   template:
@@ -43,4 +50,6 @@
     mode: 0744
 
 - name: 添加快捷路径
-  command: "echo 'cd {{ s_dir }}' >> /etc/profile"
+  shell: "echo 'cd {{ s_dir }}' >> /etc/profile"
+  tags:
+    - link_path

@@ -1,0 +1,31 @@
+---
+- name: 检查namenode公钥文件
+  stat: 
+    path: /root/.ssh/id_rsa.pub
+  register: file_exsited
+
+- name: namenode生成公钥
+  shell: "ssh-keygen -t rsa -f /root/.ssh/id_rsa -P ''"
+  when: 
+    - inventory_hostname == hdfs_ip
+    - file_exsited.stat.exists == "true"
+
+- name: 获取namenode公钥
+  fetch:
+    src: /root/.ssh/id_rsa.pub
+    dest: /tmp/namenode-id_rsa.pub
+    flat: yes
+  when: inventory_hostname == hdfs_ip
+
+- name: 添加公钥到datanode
+  authorized_key:
+    user: root
+    key: "{{ lookup('file', '/tmp/namenode-id_rsa.pub') }}"
+    state: present
+
+- name: 添加到know_hosts
+  shell: "source /etc/profile;ssh-keyscan {{ item }} >> /root/.ssh/known_hosts"
+  with_items: 
+    - "{% for host in groups['hdfs'] %} {{ host }} {% endfor %}"
+    - 0.0.0.0
+  when: inventory_hostname == hdfs_ip

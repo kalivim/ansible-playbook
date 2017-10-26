@@ -1,0 +1,10 @@
+export JAVA_HOME={{ jdk_env }}
+export SCALA_HOME={{ scala_dir }}
+export SPARK_MASTER_IP=localhost
+export SPARK_WORKER_MEMORY=1024m
+export master=spark://localhost:7077
+PARK_EXECUTOR_CORES=2
+export SPARK_LOCAL_IP=localhost
+export SPARK_CLASSPATH=$SPARK_CLASSPATH:{{ app_dir }}/libs/c3p0-0.9.1.2.jar
+export SPARK_CLASSPATH=$SPARK_CLASSPATH:{{ app_dir }}/libs/hadoop-client-2.6.0.jar
+export SPARK_CLASSPATH=$SPARK_CLASSPATH:{{ app_dir }}/libs/mysql-connector-java-5.1.31.jar

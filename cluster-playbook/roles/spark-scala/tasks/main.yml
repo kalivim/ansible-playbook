@@ -1,14 +1,20 @@
 ---
 - name: 下载部署包
   unarchive:
-    src: "{{ spark_scals_pkg }}"
-    dest: "{{ spark_dir }}"
+    src: "{{ spark_scala_pkg }}"
+    dest: "{{ bigdata_dir }}"
+    remote_src: True
 
 - name: 添加统计定时任务
-  copy:
-    src: root
+  template:
+    src: root.j2
     dest: /var/spool/cron/root
     mode: 0600
+
+- name: 创建日志目录
+  file:
+    path: "{{ crontab_log_dir }}"
+    state: directory
 
 - name: 添加环境变量
   blockinfile:
@@ -21,12 +27,12 @@
 - name: 更改统计脚本配置
   template:
     src: env.sh.j2
-    dest: "{{ app_dir }}/env.sh"
+    dest: "{{ app_dir }}/bin/env.sh"
 
-- name: 测试env
-  command: source /etc/profile;scala -version
+- name: 启动spark
+  shell: "{{ spark_dir }}/sbin/start-master.sh"
   register: check_out
 
 - name: 结果
   debug:
-    msg: "{{ check_out.stderr }}"
+    msg: "{{ check_out.stdout }}"

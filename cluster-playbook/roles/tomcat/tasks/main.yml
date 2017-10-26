@@ -1,8 +1,14 @@
 ---
+- name: 创建project目录
+  file:
+    path: "{{ project_dir }}"
+    state: directory
+
 - name: 下载tomcat
   unarchive:
     src: "{{ tomcat_pkg }}"
-    dest: "{{ tomcat_dir }}"
+    dest: "{{ project_dir }}"
+    remote_src: True
 
 - name: 部署gm更新程序
   template:
@@ -30,11 +36,19 @@
     src: gm.sql
     dest: "{{ tomcat_dir }}/gm.sql"
 
+- name: 安装mysql-client
+  yum:
+    name: mysql
+    state: present
+
 - name: 执行sql文件
-  command: "mysql -u{{ gm_mysql_user }} -p{{ gm_mysql_passwd }} -h{{ gm_mysql }} -P{{  gm_mysql_port }} {{ gm_mysql_db }} < {{ tomcat_dir }}/gm.sql"
+  shell: "mysql -u{{ gm_mysql_user }} -p{{ gm_mysql_passwd }} -h{{ gm_mysql }} -P{{  gm_mysql_port }} {{ gm_mysql_db }} < {{ tomcat_dir }}/gm.sql"
 
 - name: 启动gm
-  command: upgm
+  shell: upgm
 
 - name: 添加快捷路径
-  command: "echo 'cd {{ tomcat_dir }}' >> /etc/profile"
+  shell: "echo 'cd {{ tomcat_dir }}' >> /etc/profile"
+  tags:
+    - link_path
+

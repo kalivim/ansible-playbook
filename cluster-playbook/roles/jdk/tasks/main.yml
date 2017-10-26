@@ -27,4 +27,4 @@
 
 - name: 结果
   debug:
-    msg: "{{ check_out.stderr}}"
+    msg: "{{ check_out.stdout_lines}}"

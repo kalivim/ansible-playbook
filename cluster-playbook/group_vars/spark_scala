@@ -1,0 +1,7 @@
+﻿---
+spark_scala_pkg: "http://spark-scala.tar.gz"
+spark_scala_dir: "{{ bigdata_dir }}/spark_scala"
+spark_dir: "{{ spark_scala_dir }}/spark-1.6.0-bin-hadoop2.6"
+scala_dir: "{{ spark_scala_dir }}/scala-2.10.2"
+app_dir: "{{ bigdata_dir }}/app"
+crontab_log_dir: "{{ bigdata_dir }}/crontab"

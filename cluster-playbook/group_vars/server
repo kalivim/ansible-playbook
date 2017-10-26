@@ -1,6 +1,6 @@
----
-s_pkg: "https://service.tar"
+﻿---
+s_pkg: "https://game-service.tar"
 s_jvm_ms: 3648 
 s_jvm_mx: 6980
 s_jvm_mn: 2512
-battle_url: "http://ip:6666/"
+battle_url: "http://1.1.1.1:6666/"

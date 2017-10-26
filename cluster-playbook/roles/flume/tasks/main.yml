@@ -20,6 +20,17 @@
     src: flume.j2
     dest: /usr/local/bin/flume
     mode: 0744 
-  
+
+- name: 添加快捷路径
+  shell: "echo 'cd {{ bigdata_dir }}'>> /etc/profile "
+  tags: 
+    - link_path
+
 - name: 启动flume
-  command: flume start
+  shell: flume start
+  register: flume_status
+
+- name: flume状态
+  debug:
+    msg: "{{ flume_status.stdout }}"
+

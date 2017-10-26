@@ -58,7 +58,9 @@
 
 - name: ZK集群状态
   debug:
-    msg: "{{ check_zk.stdout }}"
+    msg: "{{ check_zk.stdout_lines }}"
 
 - name: 添加快捷路径
-  command: "echo 'cd {{ zk_dir }}' >> /etc/profile"
+  shell: "echo 'cd {{ zk_dir }}' >> /etc/profile"
+  tags: 
+    - link_path
