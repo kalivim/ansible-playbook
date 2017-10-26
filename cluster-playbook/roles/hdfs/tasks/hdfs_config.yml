@@ -73,6 +73,15 @@
     chdir: "{{ hadoop_bin }}"
   when: inventory_hostname == hdfs_ip
 
+- name: 修改最大打开文件数
+  blockinfile:
+    dest: /etc/security/limits.conf
+    block: |
+      @users soft nofile 100001
+      @users hard nofile 100002
+      @root  soft nofile 100001
+      @root  hard nofile 100002
+
 - name: 启动hdfs集群
   shell: ./start-dfs.sh
   args:
