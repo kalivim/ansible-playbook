@@ -110,3 +110,5 @@
 |-- site.retry
 `-- site.yml
 ```
+
+![image](https://raw.githubusercontent.com/kalivim/playbook/master/cluster-playbook/20171221182104.gif)
