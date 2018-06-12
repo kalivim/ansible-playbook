@@ -1,5 +1,6 @@
-﻿---
-tomcat_pkg: "http://apache-tomcat-8.5.23.tar.gz"
-gm_pkg: "https://game_gm.war"
+---
+tomcat_pkg: "https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz"
+#gm_pkg: "https://s3-us-west-2.amazonaws.com/serveras/game_gm.war"
+gm_pkg: "http://cluster-1251231552.cosbj.myqcloud.com/game_gm.war"
 tomcat_dir: "{{ project_dir }}/apache-tomcat-8.5.23"
 gm_config_dir: "{{ tomcat_dir }}/webapps/game_gm/WEB-INF/classes"

@@ -8,18 +8,23 @@
   unarchive:
     src: "{{ flume_pkg }}"
     dest: "{{ bigdata_dir }}/flume"
+    validate_certs: no
     remote_src: True
 
 - name: 配置Flume.conf
   template:
     src: flume.conf.j2
     dest: "{{ flume_dir }}/conf/flume.conf"
+  tags:
+    - change_config
 
 - name: 增加flume启动程序
   template:
     src: flume.j2
     dest: /usr/local/bin/flume
     mode: 0744 
+  tags:
+    - run_script
 
 - name: 添加快捷路径
   shell: "echo 'cd {{ bigdata_dir }}'>> /etc/profile "
@@ -34,3 +39,8 @@
   debug:
     msg: "{{ flume_status.stdout }}"
 
+- name: 添加解析
+  blockinfile:
+    dest: /etc/hosts
+    block: |
+      127.0.0.1        {{ ansible_hostname }}

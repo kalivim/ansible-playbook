@@ -1,0 +1,5 @@
+use admin;
+
+db.createUser({user:'{{ user }}',pwd:'{{ pwd }}',roles:[{ role:"root",db:"admin"}]});
+
+db.auth('{{ user }}', '{{ pwd }}')

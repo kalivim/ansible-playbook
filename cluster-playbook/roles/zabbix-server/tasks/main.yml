@@ -1,0 +1,31 @@
+---
+- name: 安装zabbix_server
+  yum:
+    name: zabbix22-server zabbix22-web-mysql zabbix22-server-mysq mysql
+    state: present
+
+[root@VM_144_105_centos ~]# mysql -uzabbix -pe2.718282 -h10.66.174.190 zabbix < /usr/share/zabbix-mysql/schema.sql 
+[root@VM_144_105_centos ~]# mysql -uzabbix -pe2.718282 -h10.66.174.190 zabbix < /usr/share/zabbix-mysql/images.sql 
+[root@VM_144_105_centos ~]# mysql -uzabbix -pe2.718282 -h10.66.174.190 zabbix < /usr/share/zabbix-mysql/data.sql 
+
+
+- name: 配置zabbix_server.conf
+  template:
+    owner: zabbix
+    src: zabbix_server.conf.j2
+    dest: zabbix_server.conf
+
+max_execution_time = 30 
+max_input_time = 60
+memory_limit = 128M
+upload_max_filesize = 2M
+;date.timezone =
+post_max_size = 8M
+
+
+max_execution_time = 600
+max_input_time = 600
+memory_limit = 256
+Mpost_max_size = 32M
+upload_max_filesize = 16M
+date.timezone = Asia/Shanghai

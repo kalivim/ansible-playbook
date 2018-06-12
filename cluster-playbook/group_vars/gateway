@@ -1,5 +1,7 @@
-﻿---
-g_pkg: "https://game-gateway.tar"
-g_jvm_ms: 3648
+---
+#g_pkg: "https://s3-us-west-2.amazonaws.com/serveras/game-gateway.tar"
+g_pkg: "http://cluster-1251231552.cosbj.myqcloud.com/game-gateway.tar"
+g_jvm_ms: 4048
 g_jvm_mx: 6980
-g_jvm_mn: 2512
+g_jvm_mn: 2012
+gateway_chat: cnofficial

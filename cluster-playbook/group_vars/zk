@@ -1,6 +1,6 @@
 ---
 zk_dir: "{{ software_dir }}/zkserver"
 zk_bin: "{{ zk_dir }}/zookeeper-3.4.9"
-zk_pkg: "http://www.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz"
+zk_pkg: "https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz"
 zk_jvm_mx: 3144
 zk_jvm_ms: 2048

@@ -1,0 +1,3 @@
+[mongodb]
+172.16.8.185 inventory_hostname=mongodb_master
+172.16.8.186 inventory_hostname=mongodb_arbiter

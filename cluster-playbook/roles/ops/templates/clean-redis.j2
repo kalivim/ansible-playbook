@@ -1,6 +1,6 @@
 #!/bin/sh
 
-redis_host="redis-cli -h {{ redis }} -n {{ redis_db }} {% if redis_passwd %} -p {{ redis_passwd }} {% endif %}"
+redis_host="redis-cli -h {{ redis }} -n {{ redis_db }} {% if redis_passwd %} -a {{ redis_passwd }} {% endif %}"
 
 if [ -n "$1" ];then
 	keys=`$redis_host keys $1*|awk -F\" '{print $1}'`

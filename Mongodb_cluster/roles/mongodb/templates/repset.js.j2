@@ -1,0 +1,10 @@
+cfg={_id:"buka",members:[{_id:0,host:'{{ mongodb_master }}:{{ bind_port }}',priority:99},{% for slave in mongodb_slaves %}{_id:{{ slave.id }},host:'{{ slave.ip }}:{{ bind_port }}',priority:{{ slave.id }}},{% endfor %}}{_id:1,host:'{{ mongodb_arbiter }}:{{ arbiter_port }}',arbiterOnly:true}]};
+
+rs.initiate(cfg);
+
+use admin;
+
+db.createUser({user:'{{ user }}',pwd:'{{ pwd }}',roles:[{ role:"root",db:"admin"}]});
+
+db.auth('{{ user }}', '{{ pwd }}')
+

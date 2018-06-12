@@ -1,0 +1,12 @@
+---
+#大数据
+bigdata_dir: "{{ data_dir }}/bigdata"
+
+#国内
+jdk_pkg: "http://cluster-1251231552.cosbj.myqcloud.com/jdk-8u112-linux-x64.tar.gz"
+
+jdk_env: "{{ software_dir }}/jdk1.8.0_112"
+
+#hdfs
+hdfs_ip: "hdfs-01"
+hdfs_port: "9000"

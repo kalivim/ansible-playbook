@@ -10,6 +10,8 @@
     src: root.j2
     dest: /var/spool/cron/root
     mode: 0600
+  tags:
+    - change_config
 
 - name: 创建日志目录
   file:
@@ -24,10 +26,12 @@
       export PATH="$PATH:{{ scala_dir }}/bin"
       export PATH="$PATH:{{ spark_dir }}/bin"
 
-- name: 更改统计脚本配置
+- name: 更改统计脚本配置(单词拼错)
   template:
-    src: env.sh.j2
-    dest: "{{ app_dir }}/bin/env.sh"
+    src: evn.sh.j2
+    dest: "{{ app_dir }}/bin/evn.sh"
+  tags:
+    - change_config
 
 - name: 启动spark
   shell: "{{ spark_dir }}/sbin/start-master.sh"

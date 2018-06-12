@@ -1,0 +1,5 @@
+---
+- name: 复制hosts文件
+  copy:
+    src: /etc/hosts
+    dest: /etc/hosts 

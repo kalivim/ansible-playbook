@@ -22,6 +22,11 @@
     dest: /usr/local/bin/clean-redis
     mode: 0744
 
+- name: 同步hosts
+  copy:
+    src: /etc/hosts
+    dest: /etc/hosts
+
 - name: 添加Log查看脚本
   copy:
     src: Log

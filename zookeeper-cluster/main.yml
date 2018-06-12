@@ -1,6 +1,6 @@
 ---
 - name: 正在部署Zookeeper集群
-  hosts: all
+  hosts: zk
   #vars:
   #  zkbin: /data/software/zkserver/zookeeper-3.4.9
   #  zkdir: /data/software/zkserver

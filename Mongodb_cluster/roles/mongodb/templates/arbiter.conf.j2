@@ -1,0 +1,13 @@
+dbpath={{ mongodb_dir }}/arbiter
+logpath={{ mongodb_dir }}/logs/arbiter.log
+pidfilepath={{ mongodb_dir }}/mongod_data/arbiterr.pid
+directoryperdb=true
+logappend=true
+replSet=buka 
+bind_ip={{ bind_ip }}
+port=27018
+oplogSize=10000
+fork=true
+noprealloc=true
+#auth=true
+keyFile=keyfile

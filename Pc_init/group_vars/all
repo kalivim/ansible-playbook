@@ -1,0 +1,12 @@
+---
+#磁盘
+disk_type: ext4
+disk_dev: /dev/vdb
+
+# 程序运行用户
+general_user: ttt
+general_group: ttt
+
+soft_dir: /opt
+
+general_user_dir: "{{ soft_dir }}/ttt"

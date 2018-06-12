@@ -1,0 +1,36 @@
+#!/bin/sh
+# chkconfig: 2345 21 98 
+# description: mongodb 管理脚本
+
+#############################################
+# description: mongodb 脚本                 #
+# Copyright (c)2017,北京布卡互动科技有限公司#
+#############################################
+
+start() {  
+	{{ mongodb_dir }}/bin/mongod --config {{ mongodb_dir }}/conf/mongodb.conf
+} 
+  
+stop() {  
+	{{ mongodb_dir }}/bin/mongod --config {{ mongodb_dir }}/conf/mongodb.conf --shutdown  
+} 
+
+case "$1" in  
+	start)  
+		start  
+		;;  
+	  
+	stop)  
+		stop  
+		;;  
+	  
+	restart)  
+		stop  
+		start  
+		;;  
+	
+	*)  
+		echo  "Usage: $0 {start|stop|restart}"  
+		exit 1  
+	
+esac 

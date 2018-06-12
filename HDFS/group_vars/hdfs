@@ -1,0 +1,16 @@
+---
+hadoop_version: hadoop-2.7.4
+hadoop_pkg: "https://mirrors.aliyun.com/apache/hadoop/common/{{ hadoop_version }}/{{ hadoop_version }}.tar.gz"
+hadoop_dir: "{{ bigdata_dir }}/hadoop"
+hadoop_cnf: "{{ hadoop_dir }}/{{ hadoop_version }}/etc/hadoop"
+hadoop_bin: "{{ hadoop_dir }}/{{ hadoop_version }}/bin"
+hadoop_sbin: "{{ hadoop_dir }}/{{ hadoop_version }}/sbin"
+
+
+hdfs_jvm_mx: "5098"
+
+namenode_dir: "{{ hadoop_dir }}/namenode"
+datanode_dir: "{{ hadoop_dir }}/datanode"
+
+#data节点数
+hdfs_dfs_replication: "2"

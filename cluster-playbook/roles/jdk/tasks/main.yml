@@ -18,8 +18,6 @@
       export JAVA_HOME={{ jdk_env }}
       export PATH=$JAVA_HOME/bin:$PATH
       export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-  notify:
-  - source env
 
 - name: 检测
   shell: source /etc/profile;java -version
@@ -27,4 +25,4 @@
 
 - name: 结果
   debug:
-    msg: "{{ check_out.stdout_lines}}"
+    msg: "{{ check_out.stdout }}"

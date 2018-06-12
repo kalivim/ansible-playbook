@@ -1,0 +1,5 @@
+---
+zabbix_host: sql
+zabbix_db:
+zabbix_user:
+zabbix_passwd:

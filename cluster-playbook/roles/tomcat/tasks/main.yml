@@ -15,16 +15,22 @@
     src: upgm.j2
     dest: /usr/local/bin/upgm
     mode: 0744
+  tags:
+    - run_script
 
 - name: 配置gm连接数据库
   template:
     src: jdbc.properties.j2
     dest: "/jdbc.properties"
+  tags:
+    - change_config
 
 - name: 配置gm连接zookeeper
   template:
     src: applicationContext-mybatis.xml.j2
     dest: "/applicationContext-mybatis.xml"
+  tags:
+    - change_config
 
 - name: 创建gm_app目录
   file:
@@ -51,4 +57,15 @@
   shell: "echo 'cd {{ tomcat_dir }}' >> /etc/profile"
   tags:
     - link_path
+
+- name: 创建备份目录
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+
+- name: 添加解析
+  blockinfile:
+    dest: /etc/hosts
+    block: |
+      127.0.0.1        {{ ansible_hostname }}
 

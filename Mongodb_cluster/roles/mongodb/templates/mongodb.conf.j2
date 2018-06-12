@@ -1,0 +1,13 @@
+dbpath={{ mongodb_dir }}/mongod_data
+logpath={{ mongodb_dir }}/logs/mongod.log
+pidfilepath={{ mongodb_dir }}/mongod.pid  
+directoryperdb=true
+logappend=true
+replSet=buka 
+bind_ip={{ bind_ip }}
+port={{ bind_port }}
+oplogSize=10000
+fork=true
+noprealloc=true
+#auth=true
+keyFile={{ mongodb_dir }}/keyfile

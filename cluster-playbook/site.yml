@@ -1,18 +1,23 @@
 ---
-- hosts: all
-  roles:
-  - mount-disk
-  - jdk
-
-- hosts: localhost
-  roles:
-  - mysql-init
-  - ops
-
-- hosts: zk
-  roles:
-  - zookeeper-cluster
-
+#- hosts: all
+#  roles:
+#  - mount-disk
+#  - jdk
+#
+#- hosts: all
+#  roles:
+#  - cp-hosts
+#
+#
+#- hosts: localhost
+#  roles:
+#  - mysql-init
+#  - ops
+#
+#- hosts: zk
+#  roles:
+#  - zookeeper-cluster
+#
 #- hosts: zk
 #  roles:
 #  - zookeeper-alone
@@ -22,7 +27,7 @@
   - hdfs
 
 - hosts: flume
-  role:
+  roles:
   - flume
 
 - hosts: spark_scala

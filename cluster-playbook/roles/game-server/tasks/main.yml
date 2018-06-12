@@ -36,6 +36,8 @@
     src: srun.sh.j2
     dest: "{{ s_dir }}/srun.sh"
     mode: 0744
+  tags:
+    - change_config
 
 - name: 添加java线程dump
   template:
@@ -48,8 +50,30 @@
     src: game
     dest: /usr/local/bin/game
     mode: 0744
+  tags:
+    - run_script
+
+- name: 创建备份目录
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
 
 - name: 添加快捷路径
   shell: "echo 'cd {{ s_dir }}' >> /etc/profile"
   tags:
     - link_path
+
+- name: 添加清除日定时任务
+  template:
+    src: root.j2
+    dest: /var/spool/cron/root
+    mode: 0600
+  tags:
+    - crontab
+
+- name: 添加解析
+  blockinfile:
+    dest: /etc/hosts
+    block: |
+      127.0.0.1        {{ ansible_hostname }}
+

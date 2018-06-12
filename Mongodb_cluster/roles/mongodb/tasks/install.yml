@@ -1,0 +1,31 @@
+---
+
+- name: 创建Mongodb软件目录
+  file:
+    path: "{{ mongodb_dir }}"
+    state: directory
+
+- name: 创建数据目录
+  file:
+    path: "{{ mongodb_dir }}/mongod_data"
+    state: directory
+
+- name: 下载Mongodb3.2安装包
+  unarchive:
+    src: "{{ mongodb_pkg }}"
+    dest: "{{ mongodb_dir }}"
+    remote_src: True
+
+- name: 添加启动服务
+  template:
+    src: mongodb.j2
+    dest: "/etc/init.d/mongod"
+    mode: 0744
+
+- name: 添加快捷命令
+  file:
+    src: "{{ mongodb_dir }}/bin/mongo"
+    dest: "/usr/bin/mongo"
+    state: link
+
+

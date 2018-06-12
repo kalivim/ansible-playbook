@@ -1,0 +1,87 @@
+---
+- name: 添加Key密钥
+  copy:
+    src: keyfile
+    dest: "{{ mongodb_dir }}/keyfile"
+    mode: 0600
+
+- name: 更改配置文件
+  template:
+    src: mongodb.conf.j2
+    dest: "{{ mongodb_dir }}/conf/mongodb.conf"
+
+- name: 生成配置副本集mongo语句
+  template:
+    src: repset.js.j2
+    dest: "/tmp/repset.js"
+  when: inventory_hostname == mongodb_master
+
+- name: 生成添加管理用户语句
+  template:
+    src: create_user.js.j2
+    dest: "/tmp/create_user.js"
+  when: inventory_hostname == mongodb_master
+
+- name: 创建arbiter配置文件
+  template:
+    src: arbiter.conf.j2
+    dest: "{{ mongodb_dir }}/conf/arbiter.conf"
+  when: inventory_hostname == mongodb_arbiter
+
+- name: 创建arbiter数据目录
+  file:
+    path: "{{ mongodb_dir }}/arbiter"
+    state: directory
+  when: inventory_hostname == mongodb_arbiter
+
+- name: 启动arbiter
+  shell: |
+    ./bin/mongod -f conf/arbiter.conf --shutdown
+
+    ./bin/mongod -f conf/arbiter.conf
+  args:
+    chdir: "{{ mongodb_dir }}/"
+  when: inventory_hostname == mongodb_arbiter
+
+- name: 启动mongod
+  shell: service mongod restart
+
+- name: 配置mongodb副本集
+  shell: mongo  < /tmp/repset.js
+  when: inventory_hostname == mongodb_master
+
+- name: 增加认证
+  lineinfile:
+    path: "{{ mongodb_dir }}/conf/mongodb.conf"
+    regexp: "#auth=true"
+    line: "auth=true"
+
+- name: arbiter增加认证
+  lineinfile:
+    path: "{{ mongodb_dir }}/conf/arbiter.conf"
+    regexp: "#auth=true"
+    line: "auth=true"
+  when: inventory_hostname == mongodb_arbiter
+
+- name: 等待集群建立，添加mogo管理用户
+  shell: sleep 10 && mongo < /tmp/create_user.js
+  register: db_res
+
+  when: inventory_hostname == mongodb_master
+
+- name: 创建结果
+  debug:
+    msg: "{{ db_res.stdout_lines }}"
+  when: inventory_hostname == mongodb_master
+
+- name: arbiter重载配置
+  shell: |
+    ./bin/mongod -f conf/arbiter.conf --shutdown
+
+    ./bin/mongod -f conf/arbiter.conf
+  args:
+    chdir: "{{ mongodb_dir }}/"
+  when: inventory_hostname == mongodb_arbiter
+
+- name: mongod重载配置
+  shell: service mongod restart

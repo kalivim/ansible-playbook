@@ -1,8 +1,8 @@
-﻿[gm]
-gm 
+[gm]
+gm
 
 [flume]
-hdfs-01 
+hdfs-01
 hdfs-02
 hdfs-03
 
@@ -18,12 +18,16 @@ hdfs-01
 
 [zk]
 zk-01
+zk-02
+zk-03
 
 [server]
-game-01 
+game-01
+game-02
 
 [gateway]
 gateway-01
+gateway-02
 
 [hdfs:children]
 namenode

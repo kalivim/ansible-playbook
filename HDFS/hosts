@@ -1,0 +1,10 @@
+[namenode]
+hdfs-01
+
+[datanode]
+hdfs-02
+hdfs-03
+
+[hdfs:children]
+namenode
+datanode

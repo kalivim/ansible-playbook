@@ -1,6 +1,7 @@
-﻿---
-s_pkg: "https://game-service.tar"
-s_jvm_ms: 3648 
-s_jvm_mx: 6980
-s_jvm_mn: 2512
-battle_url: "http://1.1.1.1:6666/"
+---
+#s_pkg: "https://s3-us-west-2.amazonaws.com/serveras/game-service.tar"
+s_pkg: "http://cluster-1251231552.cosbj.myqcloud.com/game-service.tar"
+s_jvm_ms: 4648 
+s_jvm_mx: 6580
+s_jvm_mn: 2012
+battle_url: "http://10.104.122.188:6666/"

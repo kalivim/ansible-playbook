@@ -1,4 +1,4 @@
-﻿---
+---
 #磁盘
 data_dir: /data
 disk_type: ext2
@@ -9,7 +9,15 @@ bigdata_dir: "{{ data_dir }}/bigdata"
 
 software_dir: "{{ data_dir }}/software"
 project_dir: "{{ data_dir }}/project"
-jdk_pkg: "http://mirrors.linuxeye.com/jdk/jdk-8u112-linux-x64.tar.gz"
+#通用-慢
+#jdk_pkg: "ftp://ftp.wsisiz.edu.pl/pub/pc/pozyteczne%20oprogramowanie/java/8u112/jdk-8u112-linux-x64.tar.gz"
+
+#国内
+jdk_pkg: "http://cluster-1251231552.cosbj.myqcloud.com/jdk-8u112-linux-x64.tar.gz"
+
+#国外
+#jdk_pkg: "ftp://ftp.wsisiz.edu.pl/pub/pc/pozyteczne%20oprogramowanie/java/8u112/jdk-8u112-linux-x64.tar.gz"
+
 jdk_env: "{{ software_dir }}/jdk1.8.0_112"
 
 #游戏
@@ -19,35 +27,38 @@ g_dir: "{{ project_dir }}/game-gateway"
 #log_dir
 dump_java_dir: "{{ data_dir }}/javalog"
 
+#版本备份目录
+backup_dir: /backup
+
 #game_mysql配置
-game_mysql: "1.1.1.1"
+game_mysql: "10.66.189.156"
 game_mysql_port: "3306"
-game_mysql_db: "db_name"
+game_mysql_db: "catmint_game"
 game_mysql_user: "root"
-game_mysql_passwd: "passwd"
+game_mysql_passwd: "!yunwei@dz2017"
 
 #game_other_mysql配置
-game_mysql_other: "1.1.1.1"
+game_mysql_other: "10.66.189.156"
 game_mysql_other_port: "3306"
-game_mysql_other_db: "db_name"
+game_mysql_other_db: "catmint_game"
 game_mysql_other_user: "root"
-game_mysql_other_passwd: "passwd"
+game_mysql_other_passwd: "!yunwei@dz2017"
 
 #gm配置
-gm_mysql: "1.1.1.1"
+gm_mysql: "10.66.182.70"
 gm_mysql_port: "3306"
 gm_mysql_user: "root"
-gm_mysql_passwd: "passwd"
+gm_mysql_passwd: "!yunwei@dz2017"
 gm_mysql_db: "catmint_gm"
 
 #reids配置
-redis: "1.1.1.1"
+redis: "10.66.189.204"
 redis_port: "6379"
 redis_db: "1"
-redis_passwd: "passwd"
+redis_passwd: "!yunwei@dz2017"
 
 #游戏zk地址
-zookeeper_ip: "zookeeper://zk-01:2181"
+zookeeper_ip: "zookeeper://zk-03:2181"
 
 #flume地址
 flume_ip: "hdfs-01:6666 hdfs-02:6666 hdfs-03:6666"
@@ -55,4 +66,7 @@ flume_ip: "hdfs-01:6666 hdfs-02:6666 hdfs-03:6666"
 #hdfs
 hdfs_ip: "hdfs-01"
 hdfs_port: "9000"
+
+#zabbix
+zabbix_server: zabbix
 

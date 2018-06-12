@@ -1,0 +1,51 @@
+---
+- name: 创建普通组
+  group:
+    name: "{{ general_user }}"
+    state: present
+
+- name: 创建普通用户
+  user:
+    name: "{{ general_user }}"
+    group: "{{ general_group }}"
+    append: yes
+
+- name: 格式化磁盘
+  filesystem:
+    fstype: "{{ disk_type }}"
+    dev: "{{ disk_dev }}"
+
+- name: 挂载磁盘
+  mount:
+    path: "{{ soft_dir }}"
+    src: "{{ disk_dev }}"
+    fstype: "{{ disk_type }}"
+    state: mounted
+
+- name: 获取挂载信息
+  shell: df -h
+  register: disk_info
+
+- name: 磁盘情况
+  debug:
+    msg: "{{ disk_info.stdout }}"
+
+- name: 创建软件目录
+  file:
+    path: "{{ general_user_dir }}"
+    state: directory
+    owner: "{{ general_user }}"
+    group: "{{ general_group }}"
+    mode: 0744
+
+- name: 添加快捷路径
+  shell: echo 'cd {{ general_user_dir }}' >> /etc/profile
+
+- name: 修改最大打开文件数
+  blockinfile:
+    dest: /etc/security/limits.conf
+    block: |
+      @users soft nofile 100001
+      @users hard nofile 100002
+      @root  soft nofile 100001
+      @root  hard nofile 100002

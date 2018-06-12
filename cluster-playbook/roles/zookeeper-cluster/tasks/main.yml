@@ -64,3 +64,10 @@
   shell: "echo 'cd {{ zk_dir }}' >> /etc/profile"
   tags: 
     - link_path
+
+- name: 添加解析
+  blockinfile:
+    dest: /etc/hosts
+    block: |
+      127.0.0.1        {{ ansible_hostname }}
+

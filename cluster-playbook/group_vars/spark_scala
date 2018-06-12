@@ -1,5 +1,6 @@
-﻿---
-spark_scala_pkg: "http://spark-scala.tar.gz"
+---
+spark_scala_pkg: "http://cluster-1251231552.cosbj.myqcloud.com/spark-scala.tar.gz"
+#spark_scala_pkg: "https://s3-us-west-2.amazonaws.com/clusters-pkg/spark-scala.tar.gz"
 spark_scala_dir: "{{ bigdata_dir }}/spark_scala"
 spark_dir: "{{ spark_scala_dir }}/spark-1.6.0-bin-hadoop2.6"
 scala_dir: "{{ spark_scala_dir }}/scala-2.10.2"

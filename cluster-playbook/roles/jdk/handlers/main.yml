@@ -1,3 +1,0 @@
-﻿---
-- name: source env
-  shell: source /etc/profile

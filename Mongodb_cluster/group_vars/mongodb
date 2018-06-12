@@ -1,0 +1,18 @@
+---
+
+mongodb_pkg: "https://pkg/mongodb-3-2.tar.gz"
+mongodb_dir: "/opt/data/mongodb"
+
+bind_ip: "0.0.0.0"
+bind_port: 27017
+user: admin
+pwd: admin
+
+arbiter_port: 27018
+
+mongodb_master: "172.16.8.185"
+mongodb_slave: "172.16.8.186"
+mongodb_arbiter: "172.16.8.186"
+
+mongodb_slaves:
+- {ip: "172.16.8.186", id: "2"}

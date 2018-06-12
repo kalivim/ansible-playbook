@@ -1,0 +1,4 @@
+---
+- hosts: mongodb
+  roles:
+    - mongodb

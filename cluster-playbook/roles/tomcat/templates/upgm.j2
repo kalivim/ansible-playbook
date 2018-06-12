@@ -1,4 +1,7 @@
 #!/bin/sh
+PATH={{ jdk_env }}/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+export PATH
+
 alias cp=cp
 mv {{ tomcat_dir }}/game_gm.war /backup/
 a=`wget {{ gm_pkg }} -O {{ tomcat_dir }}/game_gm.war --no-check-certificate>/dev/null 2>&1`

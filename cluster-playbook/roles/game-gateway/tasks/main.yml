@@ -22,6 +22,13 @@
     src: deploy.properties.j2
     dest: "{{ g_dir }}/config/deploy.properties"
   tags: 
+    - change_config_1
+
+- name: 添加log4j配置
+  template:
+    src: log4j.properties.j2
+    dest: "{{ g_dir }}/config/log4j.properties"
+  tags:
     - change_config
 
 - name: 添加定制启动脚本
@@ -29,14 +36,36 @@
     src: srun.sh.j2
     dest: "{{ g_dir }}/srun.sh"
     mode: 0744
+  tags:
+    - change_config
 
 - name: 添加管理程序
   copy:
     src: game
     dest: /usr/local/bin/game
     mode: 0744
+  tags:
+    - run_script
+
+- name: 创建备份目录
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
 
 - name: 添加快捷路径
   shell: "echo 'cd {{ g_dir }}' >> /etc/profile"
   tags:
     - link_path
+
+- name: 添加清除日志定时任务
+  template:
+    src: root.j2
+    dest: /var/spool/cron/root
+    mode: 0600
+
+- name: 添加解析
+  blockinfile:
+    dest: /etc/hosts
+    block: |
+      127.0.0.1        {{ ansible_hostname }}
+
